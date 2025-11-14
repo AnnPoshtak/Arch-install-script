@@ -13,9 +13,11 @@ The author is **NOT responsible** for:
 
 You may not like my settings, so before using it, **I advise you to read the code to understand what it does.**
 <hr>
+
 ![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=white)
 ![Shell Script](https://img.shields.io/badge/Shell_Script-121011?logo=gnu-bash&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
 This is a script for automatic installation of Arch Linux. It helps to make this process faster.  
 Attention! The script works only for computers/laptops on the UEFI platform.
 
