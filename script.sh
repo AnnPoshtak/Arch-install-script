@@ -40,15 +40,15 @@ pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano vim ba
 
 genfstab /mnt >> /mnt/etc/genfstab
 
-arch-chroot /mnt
+arch-chroot /mnt /bin/bash <<EOF
 systemctl enable NetworkManager
-sed -i 's/^#en_US.UTF-8/en_US.UTF-8/'
+sed -i 's/^#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
 locale-gen
 
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 useradd -m $name
-passwd $name
-passwd root
+echo "$name:$password" | chpasswd
+echo "root:$password" | chpasswd
 
 echo "$name ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
@@ -56,7 +56,8 @@ grub-install $disk
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-exit
+EOF
+
 umount -R /mnt
 
 echo "THE SYSTEM WILL REBOOT NOW. When thw BIOS screen appes? unplug the USB drive"
