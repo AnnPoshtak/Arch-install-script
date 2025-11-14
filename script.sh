@@ -7,6 +7,8 @@ read -sp "$name password: " password
 lsblk -d -o NAME,SIZE,MODEL
 read -p "disk that will be format 'dev/...': " disk
 
+pacman -S reflector 
+reflector --country 'Ukraine,Poland,Germany' --sort rate --save /etc/pacman.d/mirrorlist
 
 wipefs -a "$disk"
 sgdisk -Z "$disk"
@@ -39,3 +41,24 @@ pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano vim ba
 genfstab /mnt >> /mnt/etc/genfstab
 
 arch-chroot /mnt
+systemctl enable NetworkManager
+sed -i 's/^#en_US.UTF-8/en_US.UTF-8/'
+locale-gen
+
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+useradd -m $name
+passwd $name
+passwd root
+
+echo "$name ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
+grub-install $disk
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+umount -R /mnt
+
+echo "THE SYSTEM WILL REBOOT NOW. When thw BIOS screen appes? unplug the USB drive"
+sleep 3
+reboot
