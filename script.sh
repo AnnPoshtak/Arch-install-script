@@ -1,12 +1,21 @@
 #!/usr/bin/bash
 
+set -e
+
 read -p "Acount name: " name
 read -sp "$name password: " password
 lsblk -d -o NAME,SIZE,MODEL
 read -p "disk that will be format 'dev/...': " disk
 
 
-wipefs -a $disk && sgdisk -Z $disk && sgdisk -n 1:0 +2G -t 1:ef00 -n 2:0:0 -t 2:8300 $disk
+wipefs -a "$disk"
+sgdisk -Z "$disk"
+partprobe "$disk"
+sleep 3
+sgdisk -n 1:0:+1G -t 1:ef00 "$disk"
+sgdisk -n 2:0:0 -t 2:8300 "$disk"
+partprobe "$disk"
+sleep 3
 
 if [[ $disk == *nvme* ]]; then
     efi_part="${disk}p1"
