@@ -8,8 +8,9 @@ lsblk -d -o NAME,SIZE,MODEL
 read -p "disk that will be format 'dev/...': " disk
 
 #pacman -S reflector 
-reflector --country 'Ukraine,Poland,Germany' --sort rate --save /etc/pacman.d/mirrorlist
-
+#reflector --country 'Ukraine,Poland,Germany' --sort rate --save /etc/pacman.d/mirrorlist
+curl -o /etc/pacman.d/mirrorlist "https://archlinux.org/mirrorlist/?country=DE&country=PL&protocol=https&use_mirror_status=on"
+sed -i 's/^#//' /etc/pacman.d/mirrorlist
 wipefs -a "$disk"
 sgdisk -Z "$disk"
 partprobe "$disk"
