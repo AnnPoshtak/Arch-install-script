@@ -7,7 +7,7 @@ read -sp "$name password: " password
 lsblk -d -o NAME,SIZE,MODEL
 read -p "disk that will be format 'dev/...': " disk
 
-pacman -S reflector 
+#pacman -S reflector 
 reflector --country 'Ukraine,Poland,Germany' --sort rate --save /etc/pacman.d/mirrorlist
 
 wipefs -a "$disk"
@@ -40,6 +40,10 @@ pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano vim ba
 
 genfstab /mnt >> /mnt/etc/genfstab
 
+
+export name
+export password
+export disk
 arch-chroot /mnt /bin/bash <<EOF
 systemctl enable NetworkManager
 sed -i 's/^#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
