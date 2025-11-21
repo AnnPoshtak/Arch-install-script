@@ -280,9 +280,9 @@ class InstallerApp(tk.Tk):
 
         # Збираємо змінні для Bash
         env = os.environ.copy()
-        env["USER_NAME"] = self.username.get()
-        env["USER_PASSWORD"] = self.user_pass.get()
-        env["TARGET_DISK"] = self.disk_choice.get()
+        env["name"] = self.username.get()
+        env["password"] = self.user_pass.get()
+        env["disk"] = self.disk_choice.get()
         env["WIFI_SSID"] = self.wifi_ssid.get()
         env["WIFI_PASS"] = self.wifi_pass.get()
         
