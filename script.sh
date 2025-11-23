@@ -2,13 +2,13 @@
 
 set -e
 
-#read -p "Acount name: " name
-#read -sp "$name password: " password
-#lsblk -d -o NAME,SIZE,MODEL
-#read -p "disk that will be format 'dev/...': " #disk
+read -p "Acount name: " name
+read -sp "$name password: " password
+lsblk -d -o NAME,SIZE,MODEL
+read -p "disk that will be format 'dev/...': " #disk
 
-#pacman -S reflector 
-#reflector --country 'Ukraine,Poland,Germany' --sort rate --save /etc/pacman.d/mirrorlist
+
+
 curl -o /etc/pacman.d/mirrorlist "https://archlinux.org/mirrorlist/?country=DE&country=PL&protocol=https&use_mirror_status=on"
 sed -i 's/^#//' /etc/pacman.d/mirrorlist
 wipefs -a "$disk"
@@ -35,11 +35,11 @@ mount $root_part /mnt
 mkdir -p /mnt/boot/efi
 mount $efi_part /mnt/boot/efi
 
-sed -i 's/^#\?ParallelDonwloads=.*/ParallelDonwloads=35/' /etc/pacman.conf
+sed -i 's/^#\?ParallelDownloads=.*/ParallelDownloads=35/' /etc/pacman.conf
 
-pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano vim bash-completion efibootmgr grub networkmanager ttf-ubuntu-font-family ttf-opensans ttf-hack
+pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano firefox konsole vim bash-completion efibootmgr grub networkmanager ttf-ubuntu-font-family ttf-opensans ttf-hack
 
-genfstab /mnt >> /mnt/etc/genfstab
+genfstab /mnt >> /mnt/etc/fstab
 
 
 export name
@@ -65,6 +65,6 @@ EOF
 
 umount -R /mnt
 
-echo "THE SYSTEM WILL REBOOT NOW. When thw BIOS screen appes? unplug the USB drive"
+echo "THE SYSTEM WILL REBOOT NOW. When the BIOS screen appes unplug the USB drive"
 sleep 3
 reboot
