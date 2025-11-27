@@ -5,7 +5,7 @@ set -e
 read -p "Acount name: " name
 read -sp "$name password: " password
 lsblk -d -o NAME,SIZE,MODEL
-read -p "disk that will be format 'dev/...': " #disk
+read -p "disk that will be format 'dev/...': " disk
 
 
 
@@ -39,7 +39,7 @@ sed -i 's/^#\?ParallelDownloads=.*/ParallelDownloads=35/' /etc/pacman.conf
 
 pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano firefox konsole vim bash-completion efibootmgr grub networkmanager ttf-ubuntu-font-family ttf-opensans ttf-hack
 
-genfstab /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 
 
 export name
