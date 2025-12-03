@@ -37,7 +37,7 @@ mount $efi_part /mnt/boot/efi
 
 sed -i 's/^#\?ParallelDownloads=.*/ParallelDownloads=35/' /etc/pacman.conf
 
-pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano firefox konsole vim bash-completion efibootmgr grub networkmanager ttf-ubuntu-font-family ttf-opensans ttf-hack
+pacstrap /mnt base base-devel linux linux-headers linux-firmware git vim bash-completion efibootmgr grub networkmanager ttf-ubuntu-font-family ttf-opensans ttf-hack
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
