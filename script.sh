@@ -5,7 +5,7 @@ set -e
 read -p "Acount name: " name
 read -sp "$name password: " password
 lsblk -d -o NAME,SIZE,MODEL
-read -p "disk that will be format 'dev/...': " disk
+read -p "disk that will be format '/dev/...': " disk
 
 
 
